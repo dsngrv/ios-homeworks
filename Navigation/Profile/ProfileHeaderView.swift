@@ -45,9 +45,9 @@ class ProfileHeaderView: UIView {
         return name
     }()
     
-    let userStatus: UITextField = {
+    let userStatus: UILabel = {
 
-        let status = UITextField(
+        let status = UILabel(
             frame: CGRect(
                 x: 156,
                 y: 198,

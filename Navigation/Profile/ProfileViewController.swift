@@ -27,26 +27,21 @@ class ProfileViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         
         view.addSubview(profileHeaderView)
-        view.addSubview(profileHeaderView.statusButton)
+        constraints()
 
         profileHeaderView.frame = view.frame
         profileHeaderView.backgroundColor = .lightGray
-        constraints()
-        profileHeaderView.statusButton.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-    }
-    
-    @objc func buttonTapped() {
-        print("Status: \(profileHeaderView.userStatus.text!)")
     }
     
     private func constraints() {
 
-        let safeArea = view.safeAreaLayoutGuide
+        let safeAreaGuide = view.safeAreaLayoutGuide
 
         NSLayoutConstraint.activate([
-            profileHeaderView.leftAnchor.constraint(equalTo: safeArea.leftAnchor),
-            profileHeaderView.rightAnchor.constraint(equalTo: safeArea.rightAnchor),
-            profileHeaderView.bottomAnchor.constraint(equalTo: safeArea.topAnchor)
+            profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
+            profileHeaderView.leftAnchor.constraint(equalTo: safeAreaGuide.leftAnchor, constant: 0),
+            profileHeaderView.rightAnchor.constraint(equalTo: safeAreaGuide.rightAnchor, constant: 0),
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
         ])
     }
 

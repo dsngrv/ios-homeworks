@@ -16,6 +16,7 @@
 		0A41019C29E01F0200F8B495 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41019B29E01F0200F8B495 /* PostViewController.swift */; };
 		0A41019E29E01F2500F8B495 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41019D29E01F2500F8B495 /* Post.swift */; };
 		0A4101A029E01F5600F8B495 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41019F29E01F5600F8B495 /* InfoViewController.swift */; };
+		0A51C8E729EEBC14007CE867 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A51C8E629EEBC14007CE867 /* ProfileHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		0A41019B29E01F0200F8B495 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		0A41019D29E01F2500F8B495 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		0A41019F29E01F5600F8B495 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		0A51C8E629EEBC14007CE867 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,18 +64,27 @@
 		0A41018229E01C2B00F8B495 /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				0A51C8E529EEBBE5007CE867 /* Profile */,
 				0A41018329E01C2B00F8B495 /* AppDelegate.swift */,
 				0A41018529E01C2B00F8B495 /* SceneDelegate.swift */,
 				0A41018C29E01C2C00F8B495 /* Assets.xcassets */,
 				0A41018E29E01C2C00F8B495 /* LaunchScreen.storyboard */,
 				0A41019129E01C2C00F8B495 /* Info.plist */,
-				0A41019729E01EA800F8B495 /* ProfileViewController.swift */,
 				0A41019929E01EC900F8B495 /* FeedViewController.swift */,
 				0A41019B29E01F0200F8B495 /* PostViewController.swift */,
 				0A41019D29E01F2500F8B495 /* Post.swift */,
 				0A41019F29E01F5600F8B495 /* InfoViewController.swift */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		0A51C8E529EEBBE5007CE867 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				0A51C8E629EEBC14007CE867 /* ProfileHeaderView.swift */,
+				0A41019729E01EA800F8B495 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +164,7 @@
 				0A41019E29E01F2500F8B495 /* Post.swift in Sources */,
 				0A41018629E01C2B00F8B495 /* SceneDelegate.swift in Sources */,
 				0A41019C29E01F0200F8B495 /* PostViewController.swift in Sources */,
+				0A51C8E729EEBC14007CE867 /* ProfileHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

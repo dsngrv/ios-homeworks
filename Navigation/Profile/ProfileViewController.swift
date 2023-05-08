@@ -17,20 +17,26 @@ class ProfileViewController: UIViewController {
         return headerView
     }()
     
+    private lazy var someButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("I do nothing...", for: .normal)
+        button.setTitle("Nothing is done", for: .highlighted)
+        button.backgroundColor = .black
+        
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.view.backgroundColor = .lightGray
-        // Do any additional setup after loading the view.
+        subviews()
+        constraints()
     }
     
-    override func viewWillLayoutSubviews() {
-        
+    private func subviews() {
         view.addSubview(profileHeaderView)
-        constraints()
-
-        profileHeaderView.frame = view.frame
-        profileHeaderView.backgroundColor = .lightGray
+        view.addSubview(someButton)
     }
     
     private func constraints() {
@@ -41,10 +47,13 @@ class ProfileViewController: UIViewController {
             profileHeaderView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor),
             profileHeaderView.leftAnchor.constraint(equalTo: safeAreaGuide.leftAnchor, constant: 0),
             profileHeaderView.rightAnchor.constraint(equalTo: safeAreaGuide.rightAnchor, constant: 0),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220)
-        ])
+            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
+            
+            someButton.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor),
+            someButton.leftAnchor.constraint(equalTo: safeAreaGuide.leftAnchor, constant: 0),
+            someButton.rightAnchor.constraint(equalTo: safeAreaGuide.rightAnchor, constant: 0)
+            ])
     }
-
     /*
     // MARK: - Navigation
 

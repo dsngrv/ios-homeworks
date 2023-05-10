@@ -13,7 +13,6 @@ class ProfileViewController: UIViewController {
         
         let headerView = ProfileHeaderView()
         headerView.translatesAutoresizingMaskIntoConstraints = false
-        
         return headerView
     }()
     
@@ -23,7 +22,6 @@ class ProfileViewController: UIViewController {
         button.setTitle("I do nothing...", for: .normal)
         button.setTitle("Nothing is done", for: .highlighted)
         button.backgroundColor = .black
-        
         return button
     }()
     
@@ -54,14 +52,4 @@ class ProfileViewController: UIViewController {
             someButton.rightAnchor.constraint(equalTo: safeAreaGuide.rightAnchor, constant: 0)
             ])
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -12,7 +12,7 @@ class ProfileHeaderView: UIView {
     
     private var statusText: String
         
-    let avatarImageView: UIImageView = {
+    private let avatarImageView: UIImageView = {
         let ava = UIImageView()
         ava.translatesAutoresizingMaskIntoConstraints = false
         ava.image = UIImage(named: "doge")
@@ -23,7 +23,7 @@ class ProfileHeaderView: UIView {
         return ava
     }()
     
-    let fullNameLabel: UILabel = {
+    private let fullNameLabel: UILabel = {
         let name = UILabel()
         name.translatesAutoresizingMaskIntoConstraints = false
         name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -33,7 +33,7 @@ class ProfileHeaderView: UIView {
         return name
     }()
     
-    let statusLabel: UILabel = {
+    private let statusLabel: UILabel = {
         let status = UILabel()
         status.translatesAutoresizingMaskIntoConstraints = false
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -43,7 +43,7 @@ class ProfileHeaderView: UIView {
     }()
     
     
-    let statusTextField: UITextField = {
+    private lazy var statusTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.layer.borderColor = UIColor.black.cgColor
@@ -60,7 +60,7 @@ class ProfileHeaderView: UIView {
         return textField
     }()
     
-    lazy var setStatusButton: UIButton = {
+    private lazy var setStatusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Set Status", for: .normal)
@@ -79,7 +79,7 @@ class ProfileHeaderView: UIView {
     override init(frame: CGRect) {
         self.statusText = statusLabel.text!
         super.init(frame: frame)
-        setupUI()
+        setupLayout()
         setupConstraints()
     }
     
@@ -96,12 +96,8 @@ class ProfileHeaderView: UIView {
         print(statusLabel.text!)
     }
     
-    private func setupUI() {
-        addSubview(avatarImageView)
-        addSubview(fullNameLabel)
-        addSubview(setStatusButton)
-        addSubview(statusLabel)
-        addSubview(statusTextField)
+    private func setupLayout() {
+        [avatarImageView, fullNameLabel, setStatusButton, statusLabel, statusTextField].forEach({addSubview($0)})
     }
     
     private func setupConstraints() {

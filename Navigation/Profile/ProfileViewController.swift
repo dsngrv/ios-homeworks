@@ -9,13 +9,19 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var listPhoto = Photo.makePhotoCollection()
+    
     private lazy var tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(
+            frame: .zero,
+            style: .grouped
+        )
         table.translatesAutoresizingMaskIntoConstraints = false
         table.backgroundColor = .lightGray
         table.delegate = self
         table.dataSource = self
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
+        table.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return table
     }()
     
@@ -51,30 +57,43 @@ extension ProfileViewController: UITableViewDelegate {
     }
         
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return section == 0 ? 240 : 0
+        return section == 0 ? 222 : 0
     }
 }
-    
+
 extension ProfileViewController: UITableViewDataSource {
-        
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         2
     }
-        
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        section == 0 ? 0 : posts.count
-            
+        section == 0 ? 1 : posts.count
     }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // здесь ошибка
         
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier) as? PostTableViewCell else { return UITableViewCell()}
-        cell.setupCell(posts[indexPath.row])
-        return cell
+        if indexPath.section == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier) as? PhotosTableViewCell else { return UITableViewCell()}
+
+            cell.delegate = self
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier) as? PostTableViewCell else { return UITableViewCell()}
+            cell.setupCell(posts[indexPath.row])
+            return cell
+        }
     }
 }
-    
 extension UIView {
 
     static var identifier: String {return String(describing: self)}
     
+}
+
+extension ProfileViewController: PhotosGalleryDelegate {
+    func openGallery() {
+        let gallery = PhotosViewController()
+        navigationController?.pushViewController(gallery, animated: true)
+    }
 }

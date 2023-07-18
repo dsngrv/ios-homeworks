@@ -8,14 +8,14 @@
 import Foundation
 
 public struct Post {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
+    public var author: String
+    public var description: String
+    public var image: String
+    public var likes: Int
+    public var views: Int
 }
 
-var posts: [Post] = [
+public var posts: [Post] = [
     Post(author: "Binance", description: "We are going to the moon!!!", image: "tothemoon", likes: 125, views: 250),
     Post(author: "Shibes World", description: "Welcome to our Shibelovers community", image: "shibes", likes: 500, views: 791),
     Post(author: "DogeMinerSim", description: "Download our DogeMiner Simulator! It's so fun!", image: "dogeminer", likes: 100, views: 678),

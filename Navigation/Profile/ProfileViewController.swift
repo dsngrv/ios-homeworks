@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 class ProfileViewController: UIViewController {
     
@@ -17,7 +18,7 @@ class ProfileViewController: UIViewController {
             style: .grouped
         )
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.backgroundColor = .lightGray
+        table.backgroundColor = .clear
         table.delegate = self
         table.dataSource = self
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
@@ -27,7 +28,14 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .lightGray
+        
+        #if DEBUG
+            view.backgroundColor = .lightGray
+        #else
+        view.backgroundColor = .darkGray
+        #endif
+        
+        navigationController?.navigationBar.isHidden = true
         setupLayout()
         
     }
@@ -52,7 +60,7 @@ extension ProfileViewController: UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ProfileHeaderView()
-        header.backgroundColor = .lightGray
+        header.backgroundColor = .clear
         return section == 0 ? header : nil
     }
         

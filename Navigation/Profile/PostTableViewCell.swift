@@ -8,8 +8,11 @@
 import Foundation
 import UIKit
 import StorageService
+import iOSIntPackage
 
 class PostTableViewCell: UITableViewCell {
+    
+    let filterImage = ImageProcessor()
     
     private lazy var postHeaderLabel: UILabel = {
         let label = UILabel()
@@ -78,7 +81,12 @@ class PostTableViewCell: UITableViewCell {
     
     func setupCell(_ post: Post) {
         postHeaderLabel.text = post.author
-        postImage.image = (UIImage(named: post.image))
+        postImage.image = UIImage(named: post.image)
+        let images = postImage.image
+        filterImage.processImage(sourceImage: images ?? UIImage(),
+                                 filter: .posterize) { (image) in
+            postImage.image = image
+        }
         postDescription.text = post.description
         postLikesCounter.text = String(post.likes)
         postViewsCounter.text = String(post.views)

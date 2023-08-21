@@ -79,7 +79,7 @@ class LogInViewContoller: UIViewController {
         button.setTitle("Log In", for: .normal)
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         button.layer.cornerRadius = 10.0
-        button.addTarget(self, action: #selector(logIn), for: .touchUpInside)
+        button.addTarget(self, action: #selector(login), for: .touchUpInside)
         return button
     }()
     
@@ -122,9 +122,26 @@ class LogInViewContoller: UIViewController {
     
 // MARK: actions
     
-    @objc func logIn() {
-        let profile = ProfileViewController()
-        navigationController?.pushViewController(profile, animated: true)
+    @objc func login() {
+        let loginText = loginTextField.text ?? " "
+        
+        #if DEBUG
+        if let testUser = TestUserService(login: loginText).user {
+            let profile = ProfileViewController()
+            profile.currentUser = testUser
+            navigationController?.pushViewController(profile, animated: true)
+        } else {
+            showAlert(message: "Неверный логин")
+        }
+        #else
+        if let currentUser = CurrentUserService(login: loginText).user {
+            let profile = ProfileViewController()
+            profile.currentUser = currentUser
+            navigationController?.pushViewController(profile, animated: true)
+        } else {
+            showAlert(message: "Неверный логин")
+        }
+        #endif
     }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {
@@ -143,6 +160,13 @@ class LogInViewContoller: UIViewController {
     }
     
 //MARK: funcs
+    
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
     
     private func setupKeyboardObservers() {
         let notificationCenter = NotificationCenter.default
@@ -214,7 +238,7 @@ extension LogInViewContoller: UITextFieldDelegate {
         } else {
             self.view.endEditing(true)
             
-            logIn()
+            login()
         }
         
         return true

@@ -28,6 +28,7 @@
 		0A5E05982A66B57200D18DA0 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5E058F2A66B57200D18DA0 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A5E059C2A66B57A00D18DA0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41019D29E01F2500F8B495 /* Post.swift */; };
 		0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */; };
+		0A97D2EC2A8CEE0200BC972B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A97D2EB2A8CEE0200BC972B /* User.swift */; };
 		8E4EB245A200EE4BA139E2FF /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D13F8C030A78F7E10F89F473 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +78,7 @@
 		0A5E05912A66B57200D18DA0 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		0A5E05922A66B57200D18DA0 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		0A97D2EB2A8CEE0200BC972B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C907389B400A7DA11EAAE473 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
 		D13F8C030A78F7E10F89F473 /* Pods_Navigation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Navigation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DCF359E730370E886C5F3C26 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				0A41019929E01EC900F8B495 /* FeedViewController.swift */,
 				0A41019B29E01F0200F8B495 /* PostViewController.swift */,
 				0A41019F29E01F5600F8B495 /* InfoViewController.swift */,
+				0A97D2EB2A8CEE0200BC972B /* User.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				0A41019A29E01EC900F8B495 /* FeedViewController.swift in Sources */,
 				0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */,
 				0A0F3A512A28AF0700B82C13 /* PhotosTableViewCell.swift in Sources */,
+				0A97D2EC2A8CEE0200BC972B /* User.swift in Sources */,
 				0A4787CB2A1503A7001F78B0 /* PostTableViewCell.swift in Sources */,
 				0A41019829E01EA800F8B495 /* ProfileViewController.swift in Sources */,
 				0A4101A029E01F5600F8B495 /* InfoViewController.swift in Sources */,

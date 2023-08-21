@@ -97,6 +97,14 @@ class ProfileHeaderView: UIView {
         print(statusLabel.text!)
     }
     
+    func setView(user: User?) {
+        if let user = user {
+            self.fullNameLabel.text = user.fullName
+            self.statusLabel.text = user.status
+            self.avatarImageView.image = user.avatar
+        }
+    }
+    
     private func setupLayout() {
         [avatarImageView, fullNameLabel, setStatusButton, statusLabel, statusTextField].forEach({addSubview($0)})
     }

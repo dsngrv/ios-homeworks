@@ -10,6 +10,7 @@ import StorageService
 
 class ProfileViewController: UIViewController {
     
+    var currentUser: User?
     private var listPhoto = Photo.makePhotoCollection()
     
     private lazy var tableView: UITableView = {
@@ -30,7 +31,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         #if DEBUG
-            view.backgroundColor = .lightGray
+        view.backgroundColor = .lightGray
         #else
         view.backgroundColor = .darkGray
         #endif
@@ -60,6 +61,7 @@ extension ProfileViewController: UITableViewDelegate {
         
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = ProfileHeaderView()
+        header.setView(user: currentUser)
         header.backgroundColor = .clear
         return section == 0 ? header : nil
     }

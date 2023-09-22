@@ -29,6 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let loginViewController = LogInViewContoller()
         loginViewController.title = "Login"
         loginViewController.view.backgroundColor = .white
+        let myLoginFactory = MyLoginFactory()
+        loginViewController.loginDelegate = myLoginFactory.makeLoginInspector()
         
         let tabBarController = UITabBarController()
         

@@ -10,6 +10,8 @@ import UIKit
 
 class LogInViewContoller: UIViewController {
         
+    var loginDelegate: LoginViewControllerDelegate!
+    
     private lazy var scrollView : UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
@@ -124,24 +126,21 @@ class LogInViewContoller: UIViewController {
     
     @objc func login() {
         let loginText = loginTextField.text ?? " "
-        
+        let passText = passwordField.text ?? " "
+        if self.loginDelegate.check(login: loginText, password: passText) {
+            let profile = ProfileViewController()
         #if DEBUG
-        if let testUser = TestUserService(login: loginText).user {
-            let profile = ProfileViewController()
-            profile.currentUser = testUser
+        let testUser = TestUserService()
+            profile.currentUser = testUser.getUser()
             navigationController?.pushViewController(profile, animated: true)
-        } else {
-            showAlert(message: "Неверный логин")
-        }
         #else
-        if let currentUser = CurrentUserService(login: loginText).user {
-            let profile = ProfileViewController()
-            profile.currentUser = currentUser
+            let currentUser = CurrentUserService()
+            profile.currentUser = currentUser.getUser()
             navigationController?.pushViewController(profile, animated: true)
+        #endif
         } else {
             showAlert(message: "Неверный логин")
         }
-        #endif
     }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {

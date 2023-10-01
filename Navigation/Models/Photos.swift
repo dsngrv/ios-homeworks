@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 struct Photo {
+    
     let photo: UIImage?
     
     static func makePhotoCollection() -> [Photo] {
@@ -18,4 +19,13 @@ struct Photo {
         }
         return photoCollection
     }
+    
+    static func makePhotosCollection() -> [UIImage] {
+        var photoCollection: [UIImage] = []
+        for image in 0...19 {
+            photoCollection.append(UIImage(named: "\(image)")!)
+        }
+        return photoCollection
+    }
+    
 }

@@ -16,7 +16,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     weak var delegate: PhotosGalleryDelegate?
     
-    private let photoCollection = Photo.makePhotoCollection()
+    private let photoCollection = Photo.makePhotosCollection()
     
     private lazy var collectionPhotoView : UIView = {
         let view = UIView()

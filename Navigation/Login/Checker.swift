@@ -21,7 +21,7 @@ final class Checker: LoginViewControllerDelegate {
     private let password = "password"
     
     func check(login: String, password: String) -> Bool {
-        self.login == login && self.password == password ? true : false
+        self.login == login && self.password == password
     }
 }
 

@@ -12,6 +12,7 @@ import iOSIntPackage
 class PhotosViewController: UIViewController {
         
     private lazy var photosArray: [UIImage] = []
+    private lazy var photos = Photo.makePhotosCollection()
     private lazy var imagePublisherFacade = ImagePublisherFacade()
     
     private lazy var imageCollection: UICollectionView = {
@@ -31,7 +32,7 @@ class PhotosViewController: UIViewController {
             navigationItem.title = "Photos Gallery"
             navigationController?.navigationBar.isHidden = false
             layout()
-            self.imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20)
+            self.imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: photos)
         }
     
         override func viewDidAppear(_ animated: Bool) {

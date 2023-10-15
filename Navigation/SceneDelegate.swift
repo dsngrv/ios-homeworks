@@ -26,17 +26,24 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         feedViewController.title = "Feed"
         feedViewController.view.backgroundColor = .orange
         
+        let loginViewController = LogInViewContoller()
+        loginViewController.title = "Login"
+        loginViewController.view.backgroundColor = .white
+        let myLoginFactory = MyLoginFactory()
+        loginViewController.loginDelegate = myLoginFactory.makeLoginInspector()
+        
         let tabBarController = UITabBarController()
         
-        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 0)
-        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "rectangle.3.group.bubble.left"), tag: 1)
+        feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "rectangle.3.group.bubble.left"), tag: 0)
+        profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
+        loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 2)
         
-        let controllers = [profileViewController, feedViewController]
+        let controllers = [feedViewController, loginViewController]
         tabBarController.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0)
         }
         
-        tabBarController.selectedIndex = 0
+        tabBarController.selectedIndex = 1
         
         window.rootViewController = tabBarController
         window.makeKeyAndVisible()

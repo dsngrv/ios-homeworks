@@ -11,6 +11,7 @@ import UIKit
 class LogInViewContoller: UIViewController {
         
     var loginDelegate: LoginViewControllerDelegate!
+    let coordinator: ProfileCoordinator
     
     private lazy var scrollView : UIScrollView = {
         let scroll = UIScrollView()
@@ -79,15 +80,12 @@ class LogInViewContoller: UIViewController {
             let loginText = self.loginTextField.text ?? " "
             let passText = self.passwordField.text ?? " "
             if self.loginDelegate.check(login: loginText, password: passText) {
-                let profile = ProfileViewController()
             #if DEBUG
                 let testUser = TestUserService()
-                profile.currentUser = testUser.getUser()
-                self.navigationController?.pushViewController(profile, animated: true)
+                self.coordinator.presentProfile(navigationController: self.navigationController, user: testUser.getUser())
             #else
                 let currentUser = CurrentUserService()
-                profile.currentUser = currentUser.getUser()
-                self.navigationController?.pushViewController(profile, animated: true)
+                self.coordinator.presentProfile(navigationController: self.navigationController, user: currentUser.getUser())
             #endif
             } else {
                 self.showAlert(message: "Неверный логин")
@@ -118,8 +116,18 @@ class LogInViewContoller: UIViewController {
 
 //MARK: inits
     
+    init(coordinator: ProfileCoordinator) {
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupLayout()
         setupConstraints()
     }

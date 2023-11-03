@@ -11,6 +11,7 @@ import StorageService
 class ProfileViewController: UIViewController {
     
     var currentUser: User?
+    let coordinator: ProfileCoordinator
     private var listPhoto = Photo.makePhotoCollection()
     
     private lazy var tableView: UITableView = {
@@ -26,6 +27,16 @@ class ProfileViewController: UIViewController {
         table.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifier)
         return table
     }()
+    
+    init(currentUser: User?, coordinator: ProfileCoordinator) {
+        self.coordinator = coordinator
+        self.currentUser = currentUser
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,7 +92,7 @@ extension ProfileViewController: UITableViewDataSource {
         section == 0 ? 1 : posts.count
     }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell { // здесь ошибка
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier) as? PhotosTableViewCell else { return UITableViewCell()}
@@ -103,7 +114,6 @@ extension UIView {
 
 extension ProfileViewController: PhotosGalleryDelegate {
     func openGallery() {
-        let gallery = PhotosViewController()
-        navigationController?.pushViewController(gallery, animated: true)
+        coordinator.presentPhoto(navigationController: self.navigationController)
     }
 }

@@ -10,3 +10,13 @@ import Foundation
 protocol LoginFactory {
     func makeLoginInspector() -> LoginInspector
 }
+
+class MainFactory: LoginFactory {
+    
+    private let inspector = LoginInspector()
+    
+    func makeLoginInspector() -> LoginInspector {
+        return inspector
+    }
+    
+}

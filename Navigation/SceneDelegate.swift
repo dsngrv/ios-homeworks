@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let feedViewController = FeedViewController()
         feedViewController.title = "Feed"
-        feedViewController.view.backgroundColor = .orange
+        feedViewController.view.backgroundColor = .white
         
         let loginViewController = LogInViewContoller()
         loginViewController.title = "Login"
@@ -37,7 +37,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         feedViewController.tabBarItem = UITabBarItem(title: "Feed", image: UIImage(systemName: "rectangle.3.group.bubble.left"), tag: 0)
         profileViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 1)
         loginViewController.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "person"), tag: 2)
-        
+                
         let controllers = [feedViewController, loginViewController]
         tabBarController.viewControllers = controllers.map {
             UINavigationController(rootViewController: $0)

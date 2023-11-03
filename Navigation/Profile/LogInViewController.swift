@@ -74,14 +74,30 @@ class LogInViewContoller: UIViewController {
         return pass
     }()
     
-    private lazy var loginButton: UIButton = {
-        let button = UIButton()
+    private lazy var loginButton: CustomButton = {
+        let button = CustomButton(title: "Log In", titleColor: .white, action: {
+            let loginText = self.loginTextField.text ?? " "
+            let passText = self.passwordField.text ?? " "
+            if self.loginDelegate.check(login: loginText, password: passText) {
+                let profile = ProfileViewController()
+            #if DEBUG
+                let testUser = TestUserService()
+                profile.currentUser = testUser.getUser()
+                self.navigationController?.pushViewController(profile, animated: true)
+            #else
+                let currentUser = CurrentUserService()
+                profile.currentUser = currentUser.getUser()
+                self.navigationController?.pushViewController(profile, animated: true)
+            #endif
+            } else {
+                self.showAlert(message: "Неверный логин")
+            }
+        })
         button.translatesAutoresizingMaskIntoConstraints = false
         button.clipsToBounds = true
         button.setTitle("Log In", for: .normal)
         button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
         button.layer.cornerRadius = 10.0
-        button.addTarget(self, action: #selector(login), for: .touchUpInside)
         return button
     }()
     
@@ -123,25 +139,6 @@ class LogInViewContoller: UIViewController {
     }
     
 // MARK: actions
-    
-    @objc func login() {
-        let loginText = loginTextField.text ?? " "
-        let passText = passwordField.text ?? " "
-        if self.loginDelegate.check(login: loginText, password: passText) {
-            let profile = ProfileViewController()
-        #if DEBUG
-        let testUser = TestUserService()
-            profile.currentUser = testUser.getUser()
-            navigationController?.pushViewController(profile, animated: true)
-        #else
-            let currentUser = CurrentUserService()
-            profile.currentUser = currentUser.getUser()
-            navigationController?.pushViewController(profile, animated: true)
-        #endif
-        } else {
-            showAlert(message: "Неверный логин")
-        }
-    }
     
     @objc func willShowKeyboard(_ notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -236,8 +233,6 @@ extension LogInViewContoller: UITextFieldDelegate {
             passwordField.becomeFirstResponder()
         } else {
             self.view.endEditing(true)
-            
-            login()
         }
         
         return true

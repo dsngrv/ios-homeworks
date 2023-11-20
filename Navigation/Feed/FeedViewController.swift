@@ -9,7 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    private let feedModel = FeedModel()
+    private let feedModel: FeedViewModelProtocol
+    let coordinator: FeedCoordinator
     
     private lazy var textField: UITextField = {
         let textField = UITextField()
@@ -52,16 +53,24 @@ class FeedViewController: UIViewController {
         return button
     }()
     
+    init(coordinator: FeedCoordinator) {
+        self.feedModel = FeedViewModel()
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupLayout()
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
-        let postViewController = PostViewController()
-        postViewController.modalTransitionStyle = .coverVertical
-        postViewController.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(postViewController, animated: true)
+        coordinator.presentPost(navigationController: self.navigationController, title: "Post")
     }
     
     private func setupLayout() {

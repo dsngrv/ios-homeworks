@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class LogInViewContoller: UIViewController {
+    
+    var brute = BruteForce()
+    var bruteTimer = 0.0
         
     var loginDelegate: LoginViewControllerDelegate!
     let coordinator: ProfileCoordinator
@@ -92,10 +95,44 @@ class LogInViewContoller: UIViewController {
             }
         })
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.clipsToBounds = true
-        button.setTitle("Log In", for: .normal)
-        button.setBackgroundImage(UIImage(named: "blue_pixel"), for: .normal)
-        button.layer.cornerRadius = 10.0
+        return button
+    }()
+    
+    private lazy var indicator: UIActivityIndicatorView = {
+            let indicator = UIActivityIndicatorView()
+            indicator.translatesAutoresizingMaskIntoConstraints = false
+            indicator.hidesWhenStopped = true
+            indicator.color = .systemBlue
+            return indicator
+    }()
+    
+    private lazy var bruteForceButton: CustomButton = {
+        let button = CustomButton(title: "BruteForce", titleColor: .white, action: {            self.indicator.startAnimating()
+            self.bruteForceButton.isEnabled = false
+            self.bruteTimer = CFAbsoluteTimeGetCurrent()
+
+                    
+            let randomPassword = genRandomPassword(countChars: 4)
+            print("New password: \(randomPassword)")
+                    
+            let queue = DispatchQueue.global(qos: .userInitiated)
+            queue.async {
+                self.brute.bruteForce(passwordToUnlock: randomPassword)
+                    
+                DispatchQueue.main.async {
+                    print("Password was guessed")
+                    
+                    self.bruteTimer = CFAbsoluteTimeGetCurrent() - self.bruteTimer
+                    print("BruteForce time: \(self.bruteTimer)")
+
+                    self.passwordField.isSecureTextEntry = false
+                    self.passwordField.text = randomPassword
+                    self.bruteForceButton.isEnabled = true
+                    self.indicator.stopAnimating()
+                }
+            }
+        })
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -198,7 +235,7 @@ class LogInViewContoller: UIViewController {
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(loginView)
-        [logoView, stackView, loginButton].forEach{loginView.addSubview($0)}
+        [logoView, stackView, loginButton, bruteForceButton, indicator].forEach{loginView.addSubview($0)}
     }
     
     private func setupConstraints() {
@@ -229,7 +266,17 @@ class LogInViewContoller: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-            loginButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16)
+//            loginButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
+            
+            bruteForceButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            bruteForceButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            bruteForceButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            bruteForceButton.heightAnchor.constraint(equalToConstant: 50),
+            bruteForceButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
+            
+            indicator.centerXAnchor.constraint(equalTo: passwordField.centerXAnchor),
+            indicator.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 2),
+            indicator.bottomAnchor.constraint(equalTo: passwordField.bottomAnchor, constant: -2)
         ])
     }
 }

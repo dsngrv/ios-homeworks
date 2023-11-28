@@ -10,6 +10,8 @@ import UIKit
 import iOSIntPackage
 
 class PhotosViewController: UIViewController {
+    
+    private var processingTimer = 0.0
         
     private lazy var photosArray: [UIImage] = []
     private lazy var photos = Photo.makePhotosCollection()
@@ -32,16 +34,26 @@ class PhotosViewController: UIViewController {
         navigationItem.title = "Photos Gallery"
         navigationController?.navigationBar.isHidden = false
         layout()
-        self.imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: 20, userImages: photos)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        imagePublisherFacade.subscribe(self)
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        imagePublisherFacade.removeSubscription(for: self)
-        imagePublisherFacade.rechargeImageLibrary()
+        processingTimer = CFAbsoluteTimeGetCurrent()
+        /* 
+        background = 3.39
+        default = 1.16
+        userInitiated = 1.08
+        userInteractive = 1.00
+        utility = 1.71 
+         */
+        ImageProcessor().processImagesOnThread(sourceImages: photos,
+                                               filter: .fade,
+                                               qos: .default) { photos in
+            self.processingTimer = CFAbsoluteTimeGetCurrent() - self.processingTimer
+            print("Обработка заняла \(self.processingTimer) скунд")
+            for image in photos {
+                self.photosArray.append(UIImage(cgImage: image!))
+            }
+            DispatchQueue.main.async {
+                self.imageCollection.reloadData()
+            }
+        }
     }
         
     private func layout() {
@@ -83,13 +95,4 @@ extension PhotosViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         UIEdgeInsets(top: sideInset, left: sideInset, bottom: sideInset, right: sideInset)
     }
-}
-
-extension PhotosViewController: ImageLibrarySubscriber {
-   
-    func receive(images: [UIImage]) {
-        self.photosArray = images
-        imageCollection.reloadData()
-    }
-    
 }

@@ -24,6 +24,7 @@ final class MainCoordinator {
     private func setupTabBarController(){
         tabBarController.tabBar.backgroundColor = .white
         tabBarController.viewControllers = [createFeed(), createProfile()]
+        tabBarController.selectedIndex = 1
     }
         
     private func createFeed() -> UINavigationController {

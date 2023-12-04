@@ -39,6 +39,7 @@
 		0ADEF87D2ABB4C1A0066A3E3 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF87C2ABB4C1A0066A3E3 /* TestUserService.swift */; };
 		0ADEF87F2ABB4C6E0066A3E3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF87E2ABB4C6E0066A3E3 /* User.swift */; };
 		0ADEF8812ABB4DAA0066A3E3 /* CurrentUserSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF8802ABB4DAA0066A3E3 /* CurrentUserSevice.swift */; };
+		0AE0DC342B0FDB270095B9B9 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */; };
 		0AE1BD152AB8DA3600C3B2C6 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1BD142AB8DA3600C3B2C6 /* Checker.swift */; };
 		0AE1BD172AB8EE2A00C3B2C6 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1BD162AB8EE2A00C3B2C6 /* LoginInspector.swift */; };
 		0AE21E532AD70FF6006F2391 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE21E522AD70FF6006F2391 /* FeedModel.swift */; };
@@ -103,6 +104,7 @@
 		0ADEF87C2ABB4C1A0066A3E3 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		0ADEF87E2ABB4C6E0066A3E3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0ADEF8802ABB4DAA0066A3E3 /* CurrentUserSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserSevice.swift; sourceTree = "<group>"; };
+		0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		0AE1BD142AB8DA3600C3B2C6 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		0AE1BD162AB8EE2A00C3B2C6 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		0AE21E522AD70FF6006F2391 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				0A0285F12ABD8AB5005D5958 /* LoginFactory.swift */,
 				0A0285F32ABD8AFE005D5958 /* MyLoginFactory.swift */,
 				0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */,
+				0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -330,7 +333,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					0A41017F29E01C2B00F8B495 = {
 						CreatedOnToolsVersion = 14.3;
@@ -436,6 +439,7 @@
 				0A0285F42ABD8AFE005D5958 /* MyLoginFactory.swift in Sources */,
 				0A41018429E01C2B00F8B495 /* AppDelegate.swift in Sources */,
 				0A41019A29E01EC900F8B495 /* FeedViewController.swift in Sources */,
+				0AE0DC342B0FDB270095B9B9 /* BruteForce.swift in Sources */,
 				0AC727762AF12D0600616A52 /* ProfileCoordinator.swift in Sources */,
 				0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */,
 				0A0F3A512A28AF0700B82C13 /* PhotosTableViewCell.swift in Sources */,
@@ -526,6 +530,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -586,6 +591,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

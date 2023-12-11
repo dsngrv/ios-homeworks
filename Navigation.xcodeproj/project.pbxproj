@@ -36,10 +36,10 @@
 		0AC727762AF12D0600616A52 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC727752AF12D0600616A52 /* ProfileCoordinator.swift */; };
 		0AC727782AF12D2500616A52 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC727772AF12D2500616A52 /* FeedCoordinator.swift */; };
 		0AC7277C2AF1472D00616A52 /* Words.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AC7277B2AF1472D00616A52 /* Words.swift */; };
+		0ADCC8D52B17DA8C008D454C /* StoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADCC8D42B17DA8C008D454C /* StoriesViewController.swift */; };
 		0ADEF87D2ABB4C1A0066A3E3 /* TestUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF87C2ABB4C1A0066A3E3 /* TestUserService.swift */; };
 		0ADEF87F2ABB4C6E0066A3E3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF87E2ABB4C6E0066A3E3 /* User.swift */; };
 		0ADEF8812ABB4DAA0066A3E3 /* CurrentUserSevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADEF8802ABB4DAA0066A3E3 /* CurrentUserSevice.swift */; };
-		0AE0DC342B0FDB270095B9B9 /* BruteForce.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */; };
 		0AE1BD152AB8DA3600C3B2C6 /* Checker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1BD142AB8DA3600C3B2C6 /* Checker.swift */; };
 		0AE1BD172AB8EE2A00C3B2C6 /* LoginInspector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE1BD162AB8EE2A00C3B2C6 /* LoginInspector.swift */; };
 		0AE21E532AD70FF6006F2391 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE21E522AD70FF6006F2391 /* FeedModel.swift */; };
@@ -101,10 +101,10 @@
 		0AC727752AF12D0600616A52 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		0AC727772AF12D2500616A52 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		0AC7277B2AF1472D00616A52 /* Words.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Words.swift; sourceTree = "<group>"; };
+		0ADCC8D42B17DA8C008D454C /* StoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoriesViewController.swift; sourceTree = "<group>"; };
 		0ADEF87C2ABB4C1A0066A3E3 /* TestUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestUserService.swift; sourceTree = "<group>"; };
 		0ADEF87E2ABB4C6E0066A3E3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0ADEF8802ABB4DAA0066A3E3 /* CurrentUserSevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentUserSevice.swift; sourceTree = "<group>"; };
-		0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BruteForce.swift; sourceTree = "<group>"; };
 		0AE1BD142AB8DA3600C3B2C6 /* Checker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checker.swift; sourceTree = "<group>"; };
 		0AE1BD162AB8EE2A00C3B2C6 /* LoginInspector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspector.swift; sourceTree = "<group>"; };
 		0AE21E522AD70FF6006F2391 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
@@ -172,6 +172,7 @@
 				0A41019B29E01F0200F8B495 /* PostViewController.swift */,
 				0A41019F29E01F5600F8B495 /* InfoViewController.swift */,
 				0AA4EAD82AD5608B00B9C1AA /* CustomButton.swift */,
+				0ADCC8D42B17DA8C008D454C /* StoriesViewController.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -237,7 +238,6 @@
 				0A0285F12ABD8AB5005D5958 /* LoginFactory.swift */,
 				0A0285F32ABD8AFE005D5958 /* MyLoginFactory.swift */,
 				0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */,
-				0AE0DC332B0FDB270095B9B9 /* BruteForce.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -431,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0ADCC8D52B17DA8C008D454C /* StoriesViewController.swift in Sources */,
 				0A0F3A532A28B0A400B82C13 /* Photos.swift in Sources */,
 				0AE1BD152AB8DA3600C3B2C6 /* Checker.swift in Sources */,
 				0ADEF8812ABB4DAA0066A3E3 /* CurrentUserSevice.swift in Sources */,
@@ -439,7 +440,6 @@
 				0A0285F42ABD8AFE005D5958 /* MyLoginFactory.swift in Sources */,
 				0A41018429E01C2B00F8B495 /* AppDelegate.swift in Sources */,
 				0A41019A29E01EC900F8B495 /* FeedViewController.swift in Sources */,
-				0AE0DC342B0FDB270095B9B9 /* BruteForce.swift in Sources */,
 				0AC727762AF12D0600616A52 /* ProfileCoordinator.swift in Sources */,
 				0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */,
 				0A0F3A512A28AF0700B82C13 /* PhotosTableViewCell.swift in Sources */,

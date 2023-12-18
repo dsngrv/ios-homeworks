@@ -7,44 +7,11 @@
 
 import Foundation
 
-struct People: Codable {
-    let name: String
-    let height: String
-    let mass: String
-}
-
-struct Starships: Codable {
-    let name: String
-    let model: String
-    let passengers: String
-}
-
-struct Planets: Codable {
-    let name: String
-    let climate: String
-    let terrain: String
-}
-
-enum AppConfiguration: String, CaseIterable {
-    private var baseURL: String { return "https://swapi.dev/api" }
-
-    case people = "/people/3"
-    case starships = "/starships/5"
-    case planets = "/planets/7"
-    
-    var url: URL {
-        guard let url = URL(string: baseURL) else {
-            preconditionFailure("The url used in \(AppConfiguration.self) is not valid")
-        }
-        return url.appendingPathComponent(self.rawValue)
-    }
-}
-
 struct NetworkService {
     
     static func request(for configuration: AppConfiguration) {
         
-        let url = configuration.url
+        guard let url = configuration.url else { return }
         let session = URLSession.shared
         let dataTask = session.dataTask(with: url) {data, response, error in
 
@@ -75,6 +42,8 @@ struct NetworkService {
                 case .planets:
                     let planet = try JSONDecoder().decode(Planets.self, from: data)
                     print("\nName: \(planet.name) \nClimate: \(planet.climate) \nTerrain: \(planet.terrain)")
+                default:
+                    print("\nAnother API link used")
                 }
             } catch {
                 print("JSON processing error: \(error.localizedDescription)")

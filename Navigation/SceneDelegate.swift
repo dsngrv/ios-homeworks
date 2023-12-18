@@ -19,6 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: scene)
         
+        NetworkService.request(for: AppConfiguration.allCases.randomElement()!)
+        
         let mainCoordinator = MainCoordinator()
         window.rootViewController = mainCoordinator.startApp()
         

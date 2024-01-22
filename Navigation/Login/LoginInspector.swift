@@ -6,10 +6,26 @@
 //
 
 import Foundation
+import FirebaseAuth
 
-struct LoginInspector: LoginViewControllerDelegate {
+protocol LoginViewControllerDelegate: AnyObject {
     
-    func check(login: String, password: String) -> Bool {
-        Checker.shared.check(login: login, password: password)
+    func checkCredentials(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void))
+    func signUp(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void))
+}
+
+class LoginInspector: LoginViewControllerDelegate {
+    
+    func checkCredentials(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void)) {
+        CheckerService().checkCredentials(email: email, password: password) { result in
+            completion(result)
+        }
     }
+    
+    func signUp(email: String, password: String, completion: @escaping ((Result<AuthDataResult, Error>) -> Void)) {
+        CheckerService().signUp(email: email, password: password) { result in
+                completion(result)
+        }
+    }
+
 }

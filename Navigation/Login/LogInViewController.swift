@@ -76,46 +76,29 @@ class LogInViewContoller: UIViewController {
     }()
     
     private lazy var loginButton: CustomButton = {
-        let button = CustomButton(title: "Log In", titleColor: .white, action: {
-            let loginText = self.loginTextField.text ?? " "
-            let passText = self.passwordField.text ?? " "
-            if self.loginDelegate.check(login: loginText, password: passText) {
-            #if DEBUG
-                let testUser = TestUserService()
-                self.coordinator.presentProfile(navigationController: self.navigationController, user: testUser.getUser())
-            #else
-                let currentUser = CurrentUserService()
-                self.coordinator.presentProfile(navigationController: self.navigationController, user: currentUser.getUser())
-            #endif
-            } else {
-                self.showAlert(message: "Неверный логин")
-            }
-        })
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = CustomButton(title: "Log In", titleColor: .white) {
+            self.login()
+        }
+        return button
+    }()
+    
+    private lazy var signUpButton: CustomButton = {
+        let button = CustomButton(title: "Sign Up", titleColor: .white) {
+            self.showAlertSignUp()
+        }
         return button
     }()
     
     private lazy var indicator: UIActivityIndicatorView = {
-            let indicator = UIActivityIndicatorView()
-            indicator.translatesAutoresizingMaskIntoConstraints = false
-            indicator.hidesWhenStopped = true
-            indicator.color = .systemBlue
-            return indicator
-    }()
-    
-    private lazy var openStoriesButton: CustomButton = {
-        let button = CustomButton(title: "Open Stories", titleColor: .white, action: {
-            let storiesViewController = StoriesViewController()
-            storiesViewController.modalTransitionStyle = .coverVertical
-            storiesViewController.modalPresentationStyle = .fullScreen
-            self.present(storiesViewController, animated: true)
-        })
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+        let indicator = UIActivityIndicatorView()
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.color = .systemBlue
+        return indicator
     }()
     
     private lazy var stackView: UIStackView = { [unowned self] in
-       let stack = UIStackView()
+        let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.clipsToBounds = true
         stack.axis = .vertical
@@ -128,8 +111,8 @@ class LogInViewContoller: UIViewController {
         stack.addArrangedSubview(passwordField)
         return stack
     }()
-
-//MARK: inits
+    
+    //MARK: inits
     
     init(coordinator: ProfileCoordinator) {
         self.coordinator = coordinator
@@ -161,7 +144,7 @@ class LogInViewContoller: UIViewController {
         removeKeyboardObservers()
     }
     
-// MARK: actions
+    // MARK: actions
     
     @objc func willShowKeyboard(_ notification: NSNotification) {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
@@ -178,12 +161,88 @@ class LogInViewContoller: UIViewController {
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
     }
     
-//MARK: funcs
+    //MARK: funcs
     
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Ошибка", message: message, preferredStyle: .alert)
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func login() {
+        if let email = self.loginTextField.text, let password = self.passwordField.text {
+            if email == " " && password == " " {
+                self.showAlert(title: "Ошибка", message: "Поля e-mail и password не могут быть пустыми")
+            } else {
+                if !email.isValidMail(email: email) {
+                    self.showAlert(title: "Ошибка", message: "Введите корректный e-mail")
+                } else if !password.isValidPassword(password: password) {
+                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+                } else {
+                    self.loginDelegate.checkCredentials(email: self.loginTextField.text!, password: self.passwordField.text!) { result in
+                        switch result {
+                        case .success(let authResult):
+                            guard authResult.user.email != nil else { return }
+                            
+#if DEBUG
+                            let testUser = TestUserService()
+                            self.coordinator.presentProfile(navigationController: self.navigationController, user: testUser.getUser())
+#else
+                            let currentUser = CurrentUserService()
+                            self.coordinator.presentProfile(navigationController: self.navigationController, user: currentUser.getUser())
+#endif
+                            
+                        case .failure(let error):
+                            self.showAlert(title: "Ошибка", message: error.localizedDescription)
+                            print(error.localizedDescription)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func showAlertSignUp() {
+        let alert = UIAlertController(title: "Регистрация пользователя", message:  "Для регистрации сверьте почту и пароль в полях ниже. Если все верно, нажмите ОК", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default) { action in
+            if let email = self.loginTextField.text, let password = self.passwordField.text {
+                if email == " " && password == " " {
+                    self.showAlert(title: "Ошибка", message: "Поля e-mail и password не могут быть пустыми")
+                } else {
+                    if !email.isValidMail(email: email) {
+                        self.showAlert(title: "Ошибка", message: "Введите корректный e-mail")
+                    } else if !password.isValidPassword(password: password) {
+                        self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+                    } else {
+                        self.loginDelegate.signUp(email: self.loginTextField.text!, password: self.passwordField.text!) { result  in
+                            switch result {
+                            case .success(let authResult):
+                                guard authResult.user.email != nil else { return }
+                                self.showAlert(title: "Добро пожаловать!" ,message: "Теперь вы можете использовать введенные данные для входа в приложение")
+                            case .failure(let error):
+                                self.showAlert(title: "Ошибка", message: error.localizedDescription)
+                                print(error.localizedDescription)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        alert.addTextField { field in
+            field.text = self.loginTextField.text!
+            field.isUserInteractionEnabled = false
+            field.returnKeyType = .next
+        }
+        alert.addTextField { field in
+            field.text = self.passwordField.text!
+            field.isSecureTextEntry = false
+            field.isUserInteractionEnabled = false
+            field.returnKeyType = .done
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
         present(alert, animated: true, completion: nil)
     }
     
@@ -213,7 +272,7 @@ class LogInViewContoller: UIViewController {
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(loginView)
-        [logoView, stackView, loginButton, openStoriesButton, indicator].forEach{loginView.addSubview($0)}
+        [logoView, stackView, loginButton, signUpButton, indicator].forEach{loginView.addSubview($0)}
     }
     
     private func setupConstraints() {
@@ -244,13 +303,12 @@ class LogInViewContoller: UIViewController {
             loginButton.leadingAnchor.constraint(equalTo: loginView.leadingAnchor, constant: 16),
             loginButton.trailingAnchor.constraint(equalTo: loginView.trailingAnchor, constant: -16),
             loginButton.heightAnchor.constraint(equalToConstant: 50),
-//            loginButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
             
-            openStoriesButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
-            openStoriesButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            openStoriesButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
-            openStoriesButton.heightAnchor.constraint(equalToConstant: 50),
-            openStoriesButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
+            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 16),
+            signUpButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            signUpButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50),
+            signUpButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
             
             indicator.centerXAnchor.constraint(equalTo: passwordField.centerXAnchor),
             indicator.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 2),

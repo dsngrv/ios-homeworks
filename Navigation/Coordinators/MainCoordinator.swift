@@ -23,7 +23,7 @@ final class MainCoordinator {
         
     private func setupTabBarController(){
         tabBarController.tabBar.backgroundColor = .white
-        tabBarController.viewControllers = [createFeed(), createProfile()]
+        tabBarController.viewControllers = [createFeed(), createProfile(), createSavedPostsList()]
         tabBarController.selectedIndex = 1
     }
         
@@ -46,4 +46,11 @@ final class MainCoordinator {
         return profileNavigationController
         }
     
+    private func createSavedPostsList() -> UINavigationController {
+        let savedPostsCoordinator = SavedPostsCoordinator()
+        let savedPostsNavigationController = UINavigationController(rootViewController: SavedPostsViewController(coordinator: savedPostsCoordinator))
+        savedPostsNavigationController.title = "Saved Posts"
+        savedPostsNavigationController.tabBarItem = UITabBarItem(title: "Saved", image: UIImage(systemName: "bookmark"), tag: 3)
+        return savedPostsNavigationController
+    }
 }

@@ -1,20 +1,16 @@
 //
-//  ProfileTableViewCell.swift
+//  SavedPostTableViewCell.swift
 //  Navigation
 //
-//  Created by Дмитрий Снигирев on 17.05.2023.
+//  Created by Дмитрий Снигирев on 18.01.2024.
 //
 
 import Foundation
-import UIKit
 import StorageService
-import iOSIntPackage
+import UIKit
 
-class PostTableViewCell: UITableViewCell {
+final class SavedPostTableViewCell: UITableViewCell {
     
-    let filterImage = ImageProcessor()
-    private var post: Post?
-        
     private lazy var postHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -69,43 +65,22 @@ class PostTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
-        setupGestures()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func addToSaved() {
-        SavedPostsService.shared.addPost(post: self.post!)
-        SavedPostsService.shared.save()
-        print("Saved")
-    }
-    
-    private func setupGestures() {
-        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(addToSaved))
-        postImage.isUserInteractionEnabled = true
-        doubleTap.numberOfTapsRequired = 2
-        postImage.addGestureRecognizer(doubleTap)
-
-    }
-    
-    func setupCell(_ post: Post) {
+    func setupCell(_ post: SavedPost) {
         postHeaderLabel.text = post.author
-        postImage.image = UIImage(named: post.image)
-        let images = postImage.image
-        filterImage.processImage(sourceImage: images ?? UIImage(),
-                                 filter: .posterize) { (image) in
-            postImage.image = image
-        }
-        postDescription.text = post.description
+        postImage.image = UIImage(named: post.image ?? " ")
+        postDescription.text = post.descr
         postLikesCounter.text = String(post.likes)
         postViewsCounter.text = String(post.views)
-        self.post = post
     }
     
     private func setupLayout() {
@@ -147,4 +122,3 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 }
-

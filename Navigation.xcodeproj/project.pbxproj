@@ -184,8 +184,9 @@
 				0AE1BD132AB8DA1A00C3B2C6 /* Login */,
 				0A4787C72A14FBB1001F78B0 /* Models */,
 				0A51C8E529EEBBE5007CE867 /* Profile */,
-				0A41018329E01C2B00F8B495 /* AppDelegate.swift */,
+				0A5EAFB52B6132C900EF7C94 /* Saved */,
 				0A41018529E01C2B00F8B495 /* SceneDelegate.swift */,
+				0A41018329E01C2B00F8B495 /* AppDelegate.swift */,
 				0A41018C29E01C2C00F8B495 /* Assets.xcassets */,
 				0A41018E29E01C2C00F8B495 /* LaunchScreen.storyboard */,
 				0A41019129E01C2C00F8B495 /* Info.plist */,
@@ -197,10 +198,6 @@
 				0AD75D2C2B275475002E5631 /* NetworkService.swift */,
 				0AAE966A2B2A25A40005C3BB /* NetworkModel.swift */,
 				0AAE966C2B2A2A350005C3BB /* NetworkManager.swift */,
-				0A4C97842B5987A300E38898 /* SavedPost.xcdatamodeld */,
-				0AB572372B580C2800719FA5 /* SavedPostsService.swift */,
-				0AB572322B58085000719FA5 /* SavedPostsViewController.swift */,
-				0A4C97822B597E2700E38898 /* SavedPostTableViewCell.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -235,6 +232,17 @@
 				0A5E05922A66B57200D18DA0 /* StorageService.docc */,
 			);
 			path = StorageService;
+			sourceTree = "<group>";
+		};
+		0A5EAFB52B6132C900EF7C94 /* Saved */ = {
+			isa = PBXGroup;
+			children = (
+				0A4C97842B5987A300E38898 /* SavedPost.xcdatamodeld */,
+				0AB572372B580C2800719FA5 /* SavedPostsService.swift */,
+				0AB572322B58085000719FA5 /* SavedPostsViewController.swift */,
+				0A4C97822B597E2700E38898 /* SavedPostTableViewCell.swift */,
+			);
+			path = Saved;
 			sourceTree = "<group>";
 		};
 		0AC727722AF12C4200616A52 /* Coordinators */ = {

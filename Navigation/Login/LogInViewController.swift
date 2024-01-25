@@ -44,7 +44,7 @@ class LogInViewContoller: UIViewController {
         loginField.placeholder = "Email or phone"
         loginField.leftViewMode = .always
         loginField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
-        loginField.keyboardType = UIKeyboardType.default
+        loginField.keyboardType = UIKeyboardType.emailAddress
         loginField.returnKeyType = UIReturnKeyType.next
         loginField.clearButtonMode = UITextField.ViewMode.whileEditing
         loginField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center

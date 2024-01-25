@@ -96,7 +96,6 @@ extension ProfileViewController: UITableViewDataSource {
         
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifier) as? PhotosTableViewCell else { return UITableViewCell()}
-
             cell.delegate = self
             return cell
         } else {
@@ -117,3 +116,4 @@ extension ProfileViewController: PhotosGalleryDelegate {
         coordinator.presentPhoto(navigationController: self.navigationController)
     }
 }
+

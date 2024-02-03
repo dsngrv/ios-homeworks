@@ -23,7 +23,7 @@ final class SavedPostsService {
         fetchPosts()
     }
     
-    private let persistentContainer: NSPersistentContainer = {
+    let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SavedPost")
         container.loadPersistentStores { _, error in
             if let error {
@@ -33,7 +33,7 @@ final class SavedPostsService {
         return container
     }()
     
-    private lazy var backgroundContext: NSManagedObjectContext = {
+    lazy var backgroundContext: NSManagedObjectContext = {
         let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         context.persistentStoreCoordinator = persistentContainer.persistentStoreCoordinator
         return context
@@ -68,16 +68,10 @@ final class SavedPostsService {
         completion(.success(true))
     }
     
-    func delete(atIndex index: Int) {
-        backgroundContext.delete(savedPosts[index])
+    func delete(post: SavedPost) {
+        let post = backgroundContext.object(with: post.objectID)
+        backgroundContext.delete(post)
         try? backgroundContext.save()
-        fetchPosts()
-    }
-    
-    func filterByAuthor(_ authorName: String) -> [SavedPost] {
-        let fetchRequest = SavedPost.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "author.name CONTAINS %@", authorName)
-        return (try? backgroundContext.fetch(fetchRequest)) ?? []
     }
 
 }

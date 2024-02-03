@@ -100,6 +100,7 @@ extension ProfileViewController: UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifier) as? PostTableViewCell else { return UITableViewCell()}
+            cell.delegate = self
             cell.setupCell(posts[indexPath.row])
             return cell
         }
@@ -117,3 +118,11 @@ extension ProfileViewController: PhotosGalleryDelegate {
     }
 }
 
+extension ProfileViewController: PostTableViewCellDelegate {
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default)
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}

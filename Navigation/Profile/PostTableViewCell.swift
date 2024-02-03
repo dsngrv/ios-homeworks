@@ -10,11 +10,17 @@ import UIKit
 import StorageService
 import iOSIntPackage
 
+protocol PostTableViewCellDelegate: AnyObject {
+    func showAlert(title: String, message: String)
+}
+
 class PostTableViewCell: UITableViewCell {
     
     let filterImage = ImageProcessor()
     private var post: Post?
-        
+    
+    weak var delegate: PostTableViewCellDelegate?
+            
     private lazy var postHeaderLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -81,9 +87,17 @@ class PostTableViewCell: UITableViewCell {
     }
     
     @objc private func addToSaved() {
-        SavedPostsService.shared.addPost(post: self.post!)
-        SavedPostsService.shared.save()
-        print("Saved")
+        guard let post = self.post else { return }
+        SavedPostsService.shared.addPost(post: post, completion: { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.delegate?.showAlert(title: "Saved", message: "Post was saved")
+                print("Saved")
+            case .failure(_):
+                self?.delegate?.showAlert(title: "Error", message: "Post already in Saved")
+                print("Post already in saved")
+            }
+        })
     }
     
     private func setupGestures() {
@@ -147,4 +161,5 @@ class PostTableViewCell: UITableViewCell {
         ])
     }
 }
+
 

@@ -56,7 +56,7 @@ class ProfileHeaderView: UIView {
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
         textField.leftViewMode = .always
-        textField.placeholder = "Waiting for something..."
+        textField.placeholder = NSLocalizedString("waitingStatus", comment: "")
         textField.addTarget(self, action: #selector(statusTextChanged(_ :)), for: .editingChanged)
         return textField
     }()
@@ -64,7 +64,7 @@ class ProfileHeaderView: UIView {
     private lazy var setStatusButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Set Status", for: .normal)
+        button.setTitle(NSLocalizedString("setStatus", comment: ""), for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 4.0

@@ -49,7 +49,7 @@ class PostTableViewCell: UITableViewCell {
     
     private lazy var postLikes: UILabel = {
         let likes = UILabel()
-        likes.text = "Likes: "
+        likes.text = NSLocalizedString("likes", comment: "")
         likes.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         likes.textColor = UIColor.black
         likes.translatesAutoresizingMaskIntoConstraints = false
@@ -58,7 +58,7 @@ class PostTableViewCell: UITableViewCell {
     
     private lazy var postViews: UILabel = {
         let views = UILabel()
-        views.text = "Views: "
+        views.text = NSLocalizedString("views", comment: "")
         views.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         views.translatesAutoresizingMaskIntoConstraints = false
         return views
@@ -91,10 +91,10 @@ class PostTableViewCell: UITableViewCell {
         SavedPostsService.shared.addPost(post: post, completion: { [weak self] result in
             switch result {
             case .success(_):
-                self?.delegate?.showAlert(title: "Saved", message: "Post was saved")
+                self?.delegate?.showAlert(title: NSLocalizedString("saved", comment: ""), message: NSLocalizedString("postWasSaved", comment: ""))
                 print("Saved")
             case .failure(_):
-                self?.delegate?.showAlert(title: "Error", message: "Post already in Saved")
+                self?.delegate?.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("postAlreadySaved", comment: ""))
                 print("Post already in saved")
             }
         })

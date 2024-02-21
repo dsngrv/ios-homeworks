@@ -31,7 +31,7 @@ class PhotosViewController: UIViewController {
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "Photos Gallery"
+        navigationItem.title = NSLocalizedString("photoGallery", comment: "")
         navigationController?.navigationBar.isHidden = false
         layout()
         processingTimer = CFAbsoluteTimeGetCurrent()

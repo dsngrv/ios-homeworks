@@ -16,20 +16,21 @@ class FeedViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.backgroundColor = .white
-        textField.placeholder = "Enter the word..."
+//        textField.placeholder = "Enter the word..."
+        textField.placeholder = NSLocalizedString("enterTheWord", comment: "")
         textField.borderStyle = .roundedRect
         return textField
     }()
     
     private lazy var checkGuessButton: CustomButton = {
-        let button = CustomButton(title: "Угадать!", titleColor: .white, action: {
+        let button = CustomButton(title: NSLocalizedString("guess", comment: ""), titleColor: .white, action: {
             if self.feedModel.check(word: self.textField.text ?? " ") {
-                self.guessLabel.text = "Верно!"
+                self.guessLabel.text = NSLocalizedString("correct", comment: "")
                 self.guessLabel.textColor = .green
                 self.guessLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
             } else {
                 self.guessLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-                self.guessLabel.text = "Попробуйте еще"
+                self.guessLabel.text = NSLocalizedString("tryAgain", comment: "")
                 self.guessLabel.textColor = .red
             }
         })
@@ -40,14 +41,14 @@ class FeedViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.text = "Угадайте слово"
+        label.text = NSLocalizedString("guessTheWord", comment: "")
         return label
     }()
     
     private lazy var actionButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Open", for: .normal)
+        button.setTitle(NSLocalizedString("open", comment: ""), for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.addTarget(self, action: #selector(buttonPressed(_ :)), for: .touchUpInside)
         return button
@@ -70,7 +71,7 @@ class FeedViewController: UIViewController {
     }
     
     @objc func buttonPressed(_ sender: UIButton) {
-        coordinator.presentPost(navigationController: self.navigationController, title: "Post")
+        coordinator.presentPost(navigationController: self.navigationController, title: NSLocalizedString("post", comment: ""))
     }
     
     private func setupLayout() {

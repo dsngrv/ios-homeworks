@@ -54,26 +54,26 @@ final class SavedPostsViewController: UIViewController {
     }
     
     @objc private func searchAction() {
-        let alert = UIAlertController(title: "Search by author", message: "Enter author name", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("searchByAuthor", comment: ""), message: NSLocalizedString("enterAuthorName", comment: ""), preferredStyle: .alert)
         alert.addTextField() { textField in
-            textField.placeholder = "Author name"
+            textField.placeholder = NSLocalizedString("authorName", comment: "")
         }
-        let findAction = UIAlertAction(title: "Find", style: .default) { [weak self] action in
+        let findAction = UIAlertAction(title: NSLocalizedString("find", comment: ""), style: .default) { [weak self] action in
             let author = alert.textFields?[0].text
             self?.fetchResultController.fetchRequest.predicate = NSPredicate(format: "author.name CONTAINS %@", author ?? "")
             try? self?.fetchResultController.performFetch()
             self?.isFiltered = true
             self?.postsTableView.reloadData()
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
         alert.addAction(findAction)
         alert.addAction(cancelAction)
         present(alert, animated: true)
     }
     
     @objc private func clearAction() {
-        let alert = UIAlertController(title: "Filters clear", message: "List was reloaded", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
+        let alert = UIAlertController(title: NSLocalizedString("clearFilter", comment: ""), message: NSLocalizedString("listReloaded", comment: ""), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { [weak self] _ in
             self?.fetchResultController.fetchRequest.predicate = nil
             try? self?.fetchResultController.performFetch()
             self?.isFiltered = false
@@ -96,7 +96,7 @@ final class SavedPostsViewController: UIViewController {
     private func setupLayout() {
         view.addSubview(postsTableView)
         view.backgroundColor = .white
-        navigationItem.title = "Saved Posts"
+        navigationItem.title = NSLocalizedString("savedPosts", comment: "")
         navigationController?.navigationBar.backgroundColor = .white
         navigationItem.rightBarButtonItems = [addSearchBarButton(), addClearFilterButton()]
         
@@ -116,7 +116,7 @@ extension SavedPostsViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (_, _, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: NSLocalizedString("delete", comment: "")) { (_, _, completionHandler) in
             let savedPost = self.fetchResultController.object(at: indexPath)
             SavedPostsService.shared.delete(post: savedPost)
             try? self.fetchResultController.performFetch()

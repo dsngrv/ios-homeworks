@@ -41,7 +41,7 @@ class LogInViewContoller: UIViewController {
         loginField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         loginField.autocapitalizationType = .none
         loginField.layer.borderWidth = 0.5
-        loginField.placeholder = "Email or phone"
+        loginField.placeholder = NSLocalizedString("emailOrPhone", comment: "")
         loginField.leftViewMode = .always
         loginField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
         loginField.keyboardType = UIKeyboardType.emailAddress
@@ -62,7 +62,7 @@ class LogInViewContoller: UIViewController {
         pass.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         pass.autocapitalizationType = .none
         pass.layer.borderWidth = 0.5
-        pass.placeholder = "Password"
+        pass.placeholder = NSLocalizedString("pass", comment: "")
         pass.isSecureTextEntry = true
         pass.leftViewMode = .always
         pass.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))
@@ -76,14 +76,14 @@ class LogInViewContoller: UIViewController {
     }()
     
     private lazy var loginButton: CustomButton = {
-        let button = CustomButton(title: "Log In", titleColor: .white) {
+        let button = CustomButton(title: NSLocalizedString("login", comment: ""), titleColor: .white) {
             self.login()
         }
         return button
     }()
     
     private lazy var signUpButton: CustomButton = {
-        let button = CustomButton(title: "Sign Up", titleColor: .white) {
+        let button = CustomButton(title: NSLocalizedString("signup", comment: ""), titleColor: .white) {
             self.showAlertSignUp()
         }
         return button
@@ -165,7 +165,7 @@ class LogInViewContoller: UIViewController {
     
     func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .cancel, handler: nil)
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
     }
@@ -173,12 +173,12 @@ class LogInViewContoller: UIViewController {
     func login() {
         if let email = self.loginTextField.text, let password = self.passwordField.text {
             if email == " " && password == " " {
-                self.showAlert(title: "Ошибка", message: "Поля e-mail и password не могут быть пустыми")
+                self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("emptyEmailFields", comment: ""))
             } else {
                 if !email.isValidMail(email: email) {
-                    self.showAlert(title: "Ошибка", message: "Введите корректный e-mail")
+                    self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("enterCorrectEmail", comment: ""))
                 } else if !password.isValidPassword(password: password) {
-                    self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+                    self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("enterCorrectPass", comment: ""))
                 } else {
                     self.loginDelegate.checkCredentials(email: self.loginTextField.text!, password: self.passwordField.text!) { result in
                         switch result {
@@ -194,7 +194,7 @@ class LogInViewContoller: UIViewController {
 #endif
                             
                         case .failure(let error):
-                            self.showAlert(title: "Ошибка", message: error.localizedDescription)
+                            self.showAlert(title: NSLocalizedString("error", comment: ""), message: error.localizedDescription)
                             print(error.localizedDescription)
                         }
                     }
@@ -204,24 +204,24 @@ class LogInViewContoller: UIViewController {
     }
     
     func showAlertSignUp() {
-        let alert = UIAlertController(title: "Регистрация пользователя", message:  "Для регистрации сверьте почту и пароль в полях ниже. Если все верно, нажмите ОК", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default) { action in
+        let alert = UIAlertController(title: NSLocalizedString("userReg", comment: ""), message:NSLocalizedString("regInfo", comment: ""), preferredStyle: .alert)
+        let okAction = UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default) { action in
             if let email = self.loginTextField.text, let password = self.passwordField.text {
                 if email == " " && password == " " {
-                    self.showAlert(title: "Ошибка", message: "Поля e-mail и password не могут быть пустыми")
+                    self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("emptyEmailFields", comment: ""))
                 } else {
                     if !email.isValidMail(email: email) {
-                        self.showAlert(title: "Ошибка", message: "Введите корректный e-mail")
+                        self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("enterCorrectEmail", comment: ""))
                     } else if !password.isValidPassword(password: password) {
-                        self.showAlert(title: "Ошибка", message: "Введите корректный пароль")
+                        self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("enterCorrectPass", comment: ""))
                     } else {
                         self.loginDelegate.signUp(email: self.loginTextField.text!, password: self.passwordField.text!) { result  in
                             switch result {
                             case .success(let authResult):
                                 guard authResult.user.email != nil else { return }
-                                self.showAlert(title: "Добро пожаловать!" ,message: "Теперь вы можете использовать введенные данные для входа в приложение")
+                                self.showAlert(title: NSLocalizedString("welcome", comment: "") ,message: NSLocalizedString("canLogin", comment: ""))
                             case .failure(let error):
-                                self.showAlert(title: "Ошибка", message: error.localizedDescription)
+                                self.showAlert(title: NSLocalizedString("error", comment: ""), message: error.localizedDescription)
                                 print(error.localizedDescription)
                             }
                         }
@@ -229,7 +229,7 @@ class LogInViewContoller: UIViewController {
                 }
             }
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel)
         alert.addTextField { field in
             field.text = self.loginTextField.text!
             field.isUserInteractionEnabled = false

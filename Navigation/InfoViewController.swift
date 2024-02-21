@@ -34,7 +34,7 @@ class InfoViewController: UIViewController {
     private lazy var callAlertButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Call Alert", for: .normal)
+        button.setTitle(NSLocalizedString("callAlert", comment: ""), for: .normal)
         button.setTitleColor(.blue, for: .normal)
         button.addTarget(self, action: #selector(callAlertButtonPressed), for: .touchUpInside)
         return button
@@ -49,7 +49,7 @@ class InfoViewController: UIViewController {
     }
     
     @objc func callAlertButtonPressed() {
-        let alert = UIAlertController(title: "My Alert", message: "This is an alert.", preferredStyle: .alert)
+        let alert = UIAlertController(title: NSLocalizedString("alert", comment: ""), message: NSLocalizedString("thisIsAlert", comment: ""), preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
             NSLog("The \"OK\" alert occured.")
         }))

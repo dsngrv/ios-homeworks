@@ -13,8 +13,15 @@ import UIKit
 final class SavedPostsViewController: UIViewController {
     
     let coordinator: SavedPostsCoordinator
-    private var posts: [SavedPost] = []
     var isFiltered: Bool = false
+    
+    private lazy var fetchResultController: NSFetchedResultsController<SavedPost> = {
+        let request = SavedPost.fetchRequest()
+        request.sortDescriptors = [NSSortDescriptor(key: "author", ascending: false)]
+        let fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: SavedPostsService.shared.backgroundContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchResultsController.delegate = self
+        return fetchResultsController
+    }()
         
     private lazy var postsTableView: UITableView = {
         let tableView = UITableView(
@@ -38,14 +45,12 @@ final class SavedPostsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        posts = SavedPostsService.shared.savedPosts
         setupLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        posts = SavedPostsService.shared.savedPosts
-        postsTableView.reloadData()
+        try? fetchResultController.performFetch()
     }
     
     @objc private func searchAction() {
@@ -55,7 +60,8 @@ final class SavedPostsViewController: UIViewController {
         }
         let findAction = UIAlertAction(title: "Find", style: .default) { [weak self] action in
             let author = alert.textFields?[0].text
-            self?.posts = SavedPostsService.shared.filterByAuthor(author ?? "")
+            self?.fetchResultController.fetchRequest.predicate = NSPredicate(format: "author.name CONTAINS %@", author ?? "")
+            try? self?.fetchResultController.performFetch()
             self?.isFiltered = true
             self?.postsTableView.reloadData()
         }
@@ -68,7 +74,8 @@ final class SavedPostsViewController: UIViewController {
     @objc private func clearAction() {
         let alert = UIAlertController(title: "Filters clear", message: "List was reloaded", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
-            self?.posts = SavedPostsService.shared.savedPosts
+            self?.fetchResultController.fetchRequest.predicate = nil
+            try? self?.fetchResultController.performFetch()
             self?.isFiltered = false
             self?.postsTableView.reloadData()
         }
@@ -110,8 +117,9 @@ extension SavedPostsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (_, _, completionHandler) in
-            SavedPostsService.shared.delete(atIndex: indexPath.row)
-            self.posts = SavedPostsService.shared.savedPosts
+            let savedPost = self.fetchResultController.object(at: indexPath)
+            SavedPostsService.shared.delete(post: savedPost)
+            try? self.fetchResultController.performFetch()
             self.postsTableView.reloadData()
             completionHandler(true)
         }
@@ -125,13 +133,44 @@ extension SavedPostsViewController: UITableViewDelegate {
 extension SavedPostsViewController: UITableViewDataSource {
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        posts.count
+        fetchResultController.sections?[section].numberOfObjects ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = postsTableView.dequeueReusableCell(withIdentifier: SavedPostTableViewCell.identifier) as? SavedPostTableViewCell else { return UITableViewCell()}
-        cell.setupCell(posts[indexPath.row])
+        let savedPost = fetchResultController.object(at: indexPath)
+        cell.setupCell(savedPost)
         return cell
+    }
+    
+}
+
+extension SavedPostsViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        postsTableView.beginUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
+        switch type {
+        case .insert:
+            postsTableView.insertRows(at: [newIndexPath!], with: .top)
+        case .delete:
+            postsTableView.deleteRows(at: [indexPath!], with: .middle)
+        case .update:
+            postsTableView.reloadRows(at: [indexPath!], with: .bottom)
+        case .move:
+            postsTableView.moveRow(at: indexPath!, to: newIndexPath!)
+        @unknown default:
+            ()
+        }
+        
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        postsTableView.reloadData()
+        postsTableView.endUpdates()
     }
     
 }

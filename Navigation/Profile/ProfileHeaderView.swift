@@ -20,7 +20,7 @@ class ProfileHeaderView: UIView {
         ava.clipsToBounds = true
         ava.layer.cornerRadius = 60.0
         ava.layer.borderWidth = 3.0
-        ava.layer.borderColor = UIColor.white.cgColor
+        ava.layer.borderColor = ColorPalette.tintColor.cgColor
         return ava
     }()
     
@@ -30,7 +30,6 @@ class ProfileHeaderView: UIView {
         name.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         name.text = "Doge Coinov"
         name.backgroundColor = UIColor(displayP3Red: 0.0, green: 0.0, blue: 0.0, alpha: 0.0)
-        name.textColor = .black
         return name
     }()
     
@@ -39,7 +38,6 @@ class ProfileHeaderView: UIView {
         status.translatesAutoresizingMaskIntoConstraints = false
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         status.text = "To the moon..."
-        status.textColor = .white
         return status
     }()
     
@@ -50,8 +48,7 @@ class ProfileHeaderView: UIView {
         textField.layer.borderColor = UIColor.black.cgColor
         textField.layer.borderWidth = 1
         textField.layer.cornerRadius = 12
-        textField.layer.backgroundColor = UIColor.white.cgColor
-        textField.textColor = .black
+        textField.layer.backgroundColor = ColorPalette.fieldsColor.cgColor
         textField.textAlignment = .left
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.leftView = UIView(frame: CGRect(x: 0, y: 10, width: 10, height: 10))

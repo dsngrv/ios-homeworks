@@ -25,7 +25,7 @@ class PostTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.textColor = .black
+        label.textColor = ColorPalette.textObjColor
         label.numberOfLines = 2
         return label
     }()
@@ -50,8 +50,8 @@ class PostTableViewCell: UITableViewCell {
     private lazy var postLikes: UILabel = {
         let likes = UILabel()
         likes.text = NSLocalizedString("likes", comment: "")
+        likes.textColor = ColorPalette.textObjColor
         likes.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        likes.textColor = UIColor.black
         likes.translatesAutoresizingMaskIntoConstraints = false
         return likes
     }()
@@ -59,6 +59,7 @@ class PostTableViewCell: UITableViewCell {
     private lazy var postViews: UILabel = {
         let views = UILabel()
         views.text = NSLocalizedString("views", comment: "")
+        views.textColor = ColorPalette.textObjColor
         views.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         views.translatesAutoresizingMaskIntoConstraints = false
         return views
@@ -67,12 +68,14 @@ class PostTableViewCell: UITableViewCell {
     private lazy var postLikesCounter: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = ColorPalette.textObjColor
         return label
     }()
     
     private lazy var postViewsCounter: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = ColorPalette.textObjColor
         return label
     }()
 
@@ -125,6 +128,8 @@ class PostTableViewCell: UITableViewCell {
     private func setupLayout() {
         [postHeaderLabel, postImage, postDescription, postLikes, postLikesCounter, postViews, postViewsCounter].forEach({contentView.addSubview($0)})
 
+        contentView.backgroundColor = ColorPalette.cellBackgroundColor
+        
         let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         

@@ -22,7 +22,6 @@ class LogInViewContoller: UIViewController {
     private lazy var loginView: UIView = {
         let login = UIView()
         login.translatesAutoresizingMaskIntoConstraints = false
-        login.backgroundColor = .white
         return login
     }()
     
@@ -35,9 +34,8 @@ class LogInViewContoller: UIViewController {
     private lazy var loginTextField: UITextField = { [unowned self] in
         let loginField = UITextField()
         loginField.translatesAutoresizingMaskIntoConstraints = false
-        loginField.layer.backgroundColor = UIColor.systemGray6.cgColor
-        loginField.layer.borderColor = UIColor.lightGray.cgColor
-        loginField.textColor = .black
+        loginField.layer.backgroundColor = ColorPalette.fieldsColor.cgColor
+        loginField.layer.borderColor = ColorPalette.tintColor.cgColor
         loginField.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         loginField.autocapitalizationType = .none
         loginField.layer.borderWidth = 0.5
@@ -56,9 +54,8 @@ class LogInViewContoller: UIViewController {
     private lazy var passwordField: UITextField = {
         let pass = UITextField()
         pass.translatesAutoresizingMaskIntoConstraints = false
-        pass.layer.backgroundColor = UIColor.systemGray6.cgColor
-        pass.layer.borderColor = UIColor.lightGray.cgColor
-        pass.textColor = .black
+        pass.layer.backgroundColor = ColorPalette.fieldsColor.cgColor
+        pass.layer.borderColor = ColorPalette.tintColor.cgColor
         pass.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         pass.autocapitalizationType = .none
         pass.layer.borderWidth = 0.5
@@ -106,7 +103,7 @@ class LogInViewContoller: UIViewController {
         stack.spacing = 0.0
         stack.layer.cornerRadius = 10.0
         stack.layer.borderWidth = 0.5
-        stack.layer.borderColor = UIColor.lightGray.cgColor
+        stack.layer.borderColor = ColorPalette.tintColor.cgColor
         stack.addArrangedSubview(loginTextField)
         stack.addArrangedSubview(passwordField)
         return stack
@@ -125,7 +122,7 @@ class LogInViewContoller: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = ColorPalette.backgroundColor
         setupLayout()
         setupConstraints()
     }

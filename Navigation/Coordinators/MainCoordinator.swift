@@ -22,7 +22,7 @@ final class MainCoordinator {
     }
         
     private func setupTabBarController(){
-        tabBarController.tabBar.backgroundColor = .white
+        tabBarController.tabBar.backgroundColor = ColorPalette.backgroundColor
         tabBarController.viewControllers = [createFeed(), createProfile(), createSavedPostsList()]
         tabBarController.selectedIndex = 1
     }

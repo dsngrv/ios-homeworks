@@ -18,16 +18,17 @@ class PhotosViewController: UIViewController {
     private lazy var imagePublisherFacade = ImagePublisherFacade()
     
     private lazy var imageCollection: UICollectionView = {
-            let layout = UICollectionViewFlowLayout()
-            layout.scrollDirection = .vertical
-            
-            let imageCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
-            imageCollection.translatesAutoresizingMaskIntoConstraints = false
-            imageCollection.delegate = self
-            imageCollection.dataSource = self
-            imageCollection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
-            return imageCollection
-        }()
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        
+        let imageCollection = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        imageCollection.translatesAutoresizingMaskIntoConstraints = false
+        imageCollection.backgroundColor = ColorPalette.backgroundColor
+        imageCollection.delegate = self
+        imageCollection.dataSource = self
+        imageCollection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
+        return imageCollection
+    }()
         
     override func viewDidLoad() {
         super.viewDidLoad()

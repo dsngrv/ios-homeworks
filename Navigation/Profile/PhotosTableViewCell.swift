@@ -28,7 +28,7 @@ class PhotosTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = NSLocalizedString("photos", comment: "")
-        label.textColor = .black
+        label.textColor = ColorPalette.textObjColor
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         return label
     }()
@@ -36,7 +36,7 @@ class PhotosTableViewCell: UITableViewCell {
     private lazy var openGalleryButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.tintColor = .black
+        button.tintColor = ColorPalette.textObjColor
         button.setImage(UIImage(systemName: "arrow.forward"), for: .normal)
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         return button
@@ -53,6 +53,7 @@ class PhotosTableViewCell: UITableViewCell {
         imageCollection.translatesAutoresizingMaskIntoConstraints = false
         imageCollection.delegate = self
         imageCollection.dataSource = self
+        imageCollection.backgroundColor = .clear
         imageCollection.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifier)
         return imageCollection
     }()
@@ -74,6 +75,8 @@ class PhotosTableViewCell: UITableViewCell {
         
         [collectionLabel, openGalleryButton, imageCollection].forEach{contentView.addSubview($0)}
         
+        contentView.backgroundColor = ColorPalette.cellBackgroundColor
+
         NSLayoutConstraint.activate([
             collectionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
             collectionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),

@@ -20,7 +20,7 @@ class ProfileViewController: UIViewController {
             style: .grouped
         )
         table.translatesAutoresizingMaskIntoConstraints = false
-        table.backgroundColor = .clear
+        table.backgroundColor = ColorPalette.backgroundColor
         table.delegate = self
         table.dataSource = self
         table.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifier)
@@ -40,13 +40,7 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        #if DEBUG
-        view.backgroundColor = .lightGray
-        #else
-        view.backgroundColor = .darkGray
-        #endif
-        
+        view.backgroundColor = ColorPalette.backgroundColor
         navigationController?.navigationBar.isHidden = true
         setupLayout()
         

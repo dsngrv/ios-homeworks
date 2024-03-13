@@ -37,6 +37,7 @@
 		0A5E05982A66B57200D18DA0 /* StorageService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A5E058F2A66B57200D18DA0 /* StorageService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A5E059C2A66B57A00D18DA0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A41019D29E01F2500F8B495 /* Post.swift */; };
 		0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */; };
+		0A77930B2B97936700461D44 /* LocalNotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77930A2B97936700461D44 /* LocalNotificationsService.swift */; };
 		0A788B8A2B345FFC00D95AFF /* CheckerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A788B892B345FFC00D95AFF /* CheckerService.swift */; };
 		0A788B8C2B3493E500D95AFF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A788B8B2B3493E500D95AFF /* GoogleService-Info.plist */; };
 		0A8561732B7BEE850097ED48 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 0A8561722B7BEE850097ED48 /* Localizable.xcstrings */; };
@@ -115,6 +116,7 @@
 		0A5E05912A66B57200D18DA0 /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
 		0A5E05922A66B57200D18DA0 /* StorageService.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = StorageService.docc; sourceTree = "<group>"; };
 		0A6DE33B2A0BD649000CFC8D /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		0A77930A2B97936700461D44 /* LocalNotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalNotificationsService.swift; sourceTree = "<group>"; };
 		0A788B892B345FFC00D95AFF /* CheckerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckerService.swift; sourceTree = "<group>"; };
 		0A788B8B2B3493E500D95AFF /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A8561722B7BEE850097ED48 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 				0A8561722B7BEE850097ED48 /* Localizable.xcstrings */,
 				0A0A6A9E2B8533410011DD1E /* UIColor+Extension.swift */,
 				0A0A6AA02B8534430011DD1E /* ColorPalette.swift */,
+				0A77930A2B97936700461D44 /* LocalNotificationsService.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				0AC727762AF12D0600616A52 /* ProfileCoordinator.swift in Sources */,
 				0AD75D2D2B275475002E5631 /* NetworkService.swift in Sources */,
 				0A0159DD2B39E10D00F0EC75 /* Validator.swift in Sources */,
+				0A77930B2B97936700461D44 /* LocalNotificationsService.swift in Sources */,
 				0A6DE33C2A0BD649000CFC8D /* LogInViewController.swift in Sources */,
 				0A788B8A2B345FFC00D95AFF /* CheckerService.swift in Sources */,
 				0A0F3A512A28AF0700B82C13 /* PhotosTableViewCell.swift in Sources */,

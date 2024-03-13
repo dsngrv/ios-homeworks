@@ -76,6 +76,22 @@
         }
       }
     },
+    "checkUpdates" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to check last updates!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Время проверить последние обновления!"
+          }
+        }
+      }
+    },
     "clearFilter" : {
       "localizations" : {
         "en" : {
@@ -296,6 +312,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Угадайте слово"
+          }
+        }
+      }
+    },
+    "hi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hi!"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Привет!"
           }
         }
       }

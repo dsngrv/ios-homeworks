@@ -33,6 +33,22 @@
         }
       }
     },
+    "biomRequest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identify yourself to continue to access this app"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Идентифицируйте себя, чтобы продолжить доступ к этому приложению"
+          }
+        }
+      }
+    },
     "callAlert" : {
       "localizations" : {
         "en" : {
@@ -252,6 +268,22 @@
         }
       }
     },
+    "errorBiom" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Error occured while gathering device biometry type"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Возникла ошибка при определении  типа биометрии устройства"
+          }
+        }
+      }
+    },
     "feed" : {
       "localizations" : {
         "en" : {
@@ -376,6 +408,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Войти"
+          }
+        }
+      }
+    },
+    "loginvia" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Login Via "
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Войти с "
           }
         }
       }

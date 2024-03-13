@@ -13,6 +13,8 @@ class LogInViewContoller: UIViewController {
     var loginDelegate: LoginViewControllerDelegate!
     let coordinator: ProfileCoordinator
     
+    let localAuthService = LocalAuthorizationService()
+    
     private lazy var scrollView : UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +88,33 @@ class LogInViewContoller: UIViewController {
         return button
     }()
     
+    private lazy var loginViaBiometryButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let image = localAuthService.avaliableBiometryType.image
+        
+        var tintedImage = UIImage(systemName: image)?.withRenderingMode(.alwaysTemplate)
+        tintedImage = tintedImage?.withTintColor(.white)
+        
+        let title = NSLocalizedString("loginvia", comment: "")
+        
+        let attributedTitle = NSMutableAttributedString()
+        attributedTitle.append(NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: UIColor.white]))
+        
+        let imageAttachment = NSTextAttachment()
+        imageAttachment.image = tintedImage
+        let imageString = NSMutableAttributedString(attachment: imageAttachment)
+        
+        attributedTitle.append(imageString)
+        
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        button.backgroundColor = .black
+        button.layer.cornerRadius = 10.0
+        button.addTarget(self, action: #selector(loginViaBiometry), for: .touchUpInside)
+        
+        return button
+    }()
+    
     private lazy var indicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
@@ -156,6 +185,34 @@ class LogInViewContoller: UIViewController {
     
     @objc func willHideKeyboard(_ notification: NSNotification) {
         scrollView.contentOffset = CGPoint(x: 0, y: 0)
+    }
+    
+    
+    @objc func loginViaBiometry() {
+        
+        localAuthService.authorizeIfPossible { success, error in
+            if success {
+#if DEBUG
+                let testUser = TestUserService()
+                DispatchQueue.main.async {
+                    self.coordinator.presentProfile(navigationController: self.navigationController, user: testUser.getUser())
+                }
+#else
+                let currentUser = CurrentUserService()
+                DispatchQueue.main.async {
+                    self.coordinator.presentProfile(navigationController: self.navigationController, user: currentUser.getUser())
+                }
+#endif
+            } else {
+                self.showAlert(title: NSLocalizedString("error", comment: ""), message: NSLocalizedString("errorBiom", comment: ""))
+            }
+            
+        }
+        
+        if case .none  =  localAuthService.avaliableBiometryType {
+            loginViaBiometryButton.isHidden = true
+        }
+        
     }
     
     //MARK: funcs
@@ -269,7 +326,7 @@ class LogInViewContoller: UIViewController {
     private func setupLayout() {
         view.addSubview(scrollView)
         scrollView.addSubview(loginView)
-        [logoView, stackView, loginButton, signUpButton, indicator].forEach{loginView.addSubview($0)}
+        [logoView, stackView, loginButton, signUpButton, indicator, loginViaBiometryButton].forEach{loginView.addSubview($0)}
     }
     
     private func setupConstraints() {
@@ -305,7 +362,12 @@ class LogInViewContoller: UIViewController {
             signUpButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             signUpButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             signUpButton.heightAnchor.constraint(equalToConstant: 50),
-            signUpButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
+            
+            loginViaBiometryButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 16),
+            loginViaBiometryButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            loginViaBiometryButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            loginViaBiometryButton.heightAnchor.constraint(equalToConstant: 50),
+            loginViaBiometryButton.bottomAnchor.constraint(equalTo: loginView.bottomAnchor, constant: -16),
             
             indicator.centerXAnchor.constraint(equalTo: passwordField.centerXAnchor),
             indicator.topAnchor.constraint(equalTo: passwordField.topAnchor, constant: 2),
